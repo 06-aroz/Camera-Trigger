@@ -1,0 +1,1406 @@
+///////////////////////////////////////
+/// Vmb API List Features Example   ///
+///////////////////////////////////////
+
+Vmb Version Major: 1 Minor: 3 Patch: 1
+
+
+Printing remote device features of the camera at index 0
+
+Camera id    : DEV_000F31504D3C
+Camera name  : Allied Vision Technologies Manta G-419B-NIR (E0022528) (DEV_000F31504D3C)
+Model name   : Manta G-419B-NIR (E0022528)
+Serial string: 50-0503579552
+
+/// Feature Name: FirmwareVerMajor
+/// Display Name: FirmwareVerMajor
+/// Tooltip:
+/// Description:
+/// SNFC Namespace: Custom
+/// Value: 1
+
+/// Feature Name: FirmwareVerMinor
+/// Display Name: FirmwareVerMinor
+/// Tooltip:
+/// Description:
+/// SNFC Namespace: Custom
+/// Value: 54
+
+/// Feature Name: FirmwareVerBuild
+/// Display Name: FirmwareVerBuild
+/// Tooltip:
+/// Description:
+/// SNFC Namespace: Custom
+/// Value: 40193
+
+/// Feature Name: SensorType
+/// Display Name: SensorType
+/// Tooltip: Type of image sensor.
+/// Description: Type of image sensor.
+/// SNFC Namespace: Custom
+/// Value: Mono
+
+/// Feature Name: SensorBits
+/// Display Name: SensorBits
+/// Tooltip: Maximum bit depth of sensor.
+/// Description: Maximum bit depth of sensor.
+/// SNFC Namespace: Custom
+/// Value: 12
+
+/// Feature Name: DeviceVendorName
+/// Display Name: DeviceVendorName
+/// Tooltip:
+/// Description:
+/// SNFC Namespace: Standard
+/// Value: Allied Vision Technologies
+
+/// Feature Name: DeviceModelName
+/// Display Name: DeviceModelName
+/// Tooltip: Camera model name.
+/// Description: Camera model name.
+/// SNFC Namespace: Standard
+/// Value: Manta G-419B-NIR
+
+/// Feature Name: DeviceFirmwareVersion
+/// Display Name: DeviceFirmwareVersion
+/// Tooltip: Firmware version of this AVT GigE camera.
+/// Description: Firmware version of this AVT GigE camera.
+/// SNFC Namespace: Standard
+/// Value: 00.01.54.40193
+
+/// Feature Name: DeviceID
+/// Display Name: DeviceID
+/// Tooltip: Serial number.
+/// Description: Serial number.
+/// SNFC Namespace: Standard
+/// Value: 50-0503579552
+
+/// Feature Name: DeviceUserID
+/// Display Name: DeviceUserID
+/// Tooltip: User-programmable Device Identifier.
+/// Description: User-programmable Device Identifier.
+/// SNFC Namespace: Standard
+/// Value:
+
+/// Feature Name: DevicePartNumber
+/// Display Name: DevicePartNumber
+/// Tooltip: Device part number.
+/// Description: Device part number.
+/// SNFC Namespace: Custom
+/// Value: E0022528
+
+/// Feature Name: DeviceScanType
+/// Display Name: DeviceScanType
+/// Tooltip:
+/// Description:
+/// SNFC Namespace: Standard
+/// Value: Areascan
+
+/// Feature Name: AcquisitionStart
+/// Display Name: AcquisitionStart
+/// Tooltip: Start acquisition. Before image acquisition can occur, acquisition must be started, either by a hardware trigger or this software command.
+/// Description: Start acquisition. Before image acquisition can occur, acquisition must be started, either by a hardware trigger or this software command.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: AcquisitionStop
+/// Display Name: AcquisitionStop
+/// Tooltip: Stop acquisition. Acquisition will stop after acquisition of the current frame is complete.
+/// Description: Stop acquisition. Acquisition will stop after acquisition of the current frame is complete.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: AcquisitionAbort
+/// Display Name: AcquisitionAbort
+/// Tooltip: Abort acquisition. Acquisition will stop immediately, but a partially transferred image will be completed.
+/// Description: Abort acquisition. Acquisition will stop immediately, but a partially transferred image will be completed.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: AcquisitionMode
+/// Display Name: AcquisitionMode
+/// Tooltip: The acquisition mode determines the behavior of the camera when acquisition start is triggered. "Continuous" mode: the camera will acquire images until acquisition stop is triggered. "SingleFrame" mode: the camera will acquire a single image. "MultiFrame" mode: the camera will acquire the number of images specified by AcquisitionFrameCount. "Recorder" mode: the camera will run continuously, and when the recorder event is triggered, send pre-trigger and post-trigger images to the host.
+/// Description: The acquisition mode determines the behavior of the camera when acquisition start is triggered. "Continuous" mode: the camera will acquire images until acquisition stop is triggered. "SingleFrame" mode: the camera will acquire a single image. "MultiFrame" mode: the camera will acquire the number of images specified by AcquisitionFrameCount. "Recorder" mode: the camera will run continuously, and when the recorder event is triggered, send pre-trigger and post-trigger images to the host.
+/// SNFC Namespace: Standard
+/// Value: Continuous
+
+/// Feature Name: AcquisitionFrameCount
+/// Display Name: AcquisitionFrameCount
+/// Tooltip: This is the number of images to acquire when in MultiFrame and Recorder acquisition modes.
+/// Description: This is the number of images to acquire when in MultiFrame and Recorder acquisition modes.
+/// SNFC Namespace: Standard
+/// Value: 1
+
+/// Feature Name: AcquisitionFrameRateAbs
+/// Display Name: AcquisitionFrameRateAbs
+/// Tooltip: Frame rate, in frames per second. This is applicable when either the FrameStart trigger mode is disabled, or the FrameStart trigger source is FixedRate. Depending on the exposure duration, the camera may not achieve the frame rate set here.
+/// Description: Frame rate, in frames per second. This is applicable when either the FrameStart trigger mode is disabled, or the FrameStart trigger source is FixedRate. Depending on the exposure duration, the camera may not achieve the frame rate set here.
+/// SNFC Namespace: Standard
+/// Value: 2.777006
+
+/// Feature Name: AcquisitionFrameRateLimit
+/// Display Name: AcquisitionFrameRateLimit
+/// Tooltip: This is the maximum frame rate possible for the current exposure duration and image format.
+/// Description: This is the maximum frame rate possible for the current exposure duration and image format.
+/// SNFC Namespace: Custom
+/// Value: 25.758590
+
+/// Feature Name: RecorderPreEventCount
+/// Display Name: RecorderPreEventCount
+/// Tooltip: This is the number of pre-event images to acquire in the Recorder acquisition mode. This must be less than or equal to AcquisitionFrameCount.
+/// Description: This is the number of pre-event images to acquire in the Recorder acquisition mode. This must be less than or equal to AcquisitionFrameCount.
+/// SNFC Namespace: Custom
+/// Value: 0
+
+/// Feature Name: TriggerSelector
+/// Display Name: TriggerSelector
+/// Tooltip: Select a trigger here, then use the controls {TriggerMode, TriggerSoftware, TriggerSource, TriggerActivation, TriggerOverlap, TriggerDelayAbs} to setup and read the trigger attributes. FrameStart is the trigger which starts each image (when acquisition is running). AcquisitionStart is the trigger which starts the acquisition process.
+/// Description: Select a trigger here, then use the controls {TriggerMode, TriggerSoftware, TriggerSource, TriggerActivation, TriggerOverlap, TriggerDelayAbs} to setup and read the trigger attributes. FrameStart is the trigger which starts each image (when acquisition is running). AcquisitionStart is the trigger which starts the acquisition process.
+/// SNFC Namespace: Standard
+/// Value: FrameStart
+
+/// Feature Name: TriggerMode
+/// Display Name: TriggerMode
+/// Tooltip: Enable or disable this trigger. Note: when the FrameStart trigger is disabled, images are triggered at a fixed rate specified by AcquisitionFrameRateAbs.
+/// Description: Enable or disable this trigger. Note: when the FrameStart trigger is disabled, images are triggered at a fixed rate specified by AcquisitionFrameRateAbs.
+/// SNFC Namespace: Standard
+/// Value: On
+
+/// Feature Name: TriggerSoftware
+/// Display Name: TriggerSoftware
+/// Tooltip: This software command effects a trigger.
+/// Description: This software command effects a trigger.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: TriggerSource
+/// Display Name: TriggerSource
+/// Tooltip: Source of trigger, when TriggerMode is On. This might be an hardware trigger, a fixed rate generator, or software trigger only.
+/// Description: Source of trigger, when TriggerMode is On. This might be an hardware trigger, a fixed rate generator, or software trigger only.
+/// SNFC Namespace: Standard
+/// Value: Freerun
+
+/// Feature Name: TriggerActivation
+/// Display Name: TriggerActivation
+/// Tooltip: Type of activation, for hardware triggers. This controls edge/level and polarity sensitivities.
+/// Description: Type of activation, for hardware triggers. This controls edge/level and polarity sensitivities.
+/// SNFC Namespace: Standard
+/// Value: RisingEdge
+
+/// Feature Name: TriggerOverlap
+/// Display Name: TriggerOverlap
+/// Tooltip: Permitted window of trigger activation, relative to previous frame.
+/// Description: Permitted window of trigger activation, relative to previous frame.
+/// SNFC Namespace: Standard
+/// Value: Off
+
+/// Feature Name: TriggerDelayAbs
+/// Display Name: TriggerDelayAbs
+/// Tooltip: Delay from hardware trigger activation to trigger effect, in microseconds.
+/// Description: Delay from hardware trigger activation to trigger effect, in microseconds.
+/// SNFC Namespace: Standard
+/// Value: 0.000000
+
+/// Feature Name: DeviceTemperatureSelector
+/// Display Name: DeviceTemperatureSelector
+/// Tooltip:
+/// Description:
+/// SNFC Namespace: Standard
+/// Value: Main
+
+/// Feature Name: DeviceTemperature
+/// Display Name: DeviceTemperature
+/// Tooltip:
+/// Description:
+/// SNFC Namespace: Standard
+/// Value: 40.250000
+
+/// Feature Name: StreamBytesPerSecond
+/// Display Name: StreamBytesPerSecond
+/// Tooltip: Bandwidth allocation: the camera will consume up to this bandwidth, in bytes per second. You must set this value if multiple cameras share the same ethernet adapter, otherwise data will be lost. The sum of all StreamBytesPerSecond values of all cameras must not exceed the available bandwidth.
+/// Description: Bandwidth allocation: the camera will consume up to this bandwidth, in bytes per second. You must set this value if multiple cameras share the same ethernet adapter, otherwise data will be lost. The sum of all StreamBytesPerSecond values of all cameras must not exceed the available bandwidth.
+/// SNFC Namespace: Custom
+/// Value: 115000000
+
+/// Feature Name: BandwidthControlMode
+/// Display Name: BandwidthControlMode
+/// Tooltip: Bandwidth allocation can be controlled by StreamBytesPerSecond, or by register SCPD0. If you do not understand SCPD0 and how this driver uses this register, leave this set to "StreamBytesPerSecond".
+/// Description: Bandwidth allocation can be controlled by StreamBytesPerSecond, or by register SCPD0. If you do not understand SCPD0 and how this driver uses this register, leave this set to "StreamBytesPerSecond".
+/// SNFC Namespace: Custom
+/// Value: StreamBytesPerSecond
+
+/// Feature Name: GevSCPSPacketSize
+/// Display Name: GevSCPSPacketSize
+/// Tooltip:
+/// Description:
+/// SNFC Namespace: Standard
+/// Value: 1500
+
+/// Feature Name: ChunkModeActive
+/// Display Name: ChunkModeActive
+/// Tooltip:
+/// Description:
+/// SNFC Namespace: Standard
+/// Value: 0
+
+/// Feature Name: PayloadSize
+/// Display Name: PayloadSize
+/// Tooltip: Maximum size of image block payload.
+/// Description: Maximum size of image block payload.
+/// SNFC Namespace: Standard
+/// Value: 4194304
+
+/// Feature Name: NonImagePayloadSize
+/// Display Name: NonImagePayloadSize
+/// Tooltip: Maximum size of chunk data, not including the image chunk, in the image block payload.
+/// Description: Maximum size of chunk data, not including the image chunk, in the image block payload.
+/// SNFC Namespace: Custom
+/// Value: 0
+
+/// Feature Name: StreamFrameRateConstrain
+/// Display Name: StreamFrameRateConstrain
+/// Tooltip: When enabled, the frame rate of the camera is constrained by available bandwidth. When disabled, the camera can image faster than it can send data.
+/// Description: When enabled, the frame rate of the camera is constrained by available bandwidth. When disabled, the camera can image faster than it can send data.
+/// SNFC Namespace: Custom
+/// Value: 1
+
+/// Feature Name: StreamHoldEnable
+/// Display Name: StreamHoldEnable
+/// Tooltip: Control on-camera image storage; this control is like a "pause" button for the image stream. When enabled, images remain stored on the camera, and are not transmitted to the host. When disabled, the image stream resumes, and any stored images are sent to the host.
+/// Description: Control on-camera image storage; this control is like a "pause" button for the image stream. When enabled, images remain stored on the camera, and are not transmitted to the host. When disabled, the image stream resumes, and any stored images are sent to the host.
+/// SNFC Namespace: Custom
+/// Value: Off
+
+/// Feature Name: StreamHoldCapacity
+/// Display Name: StreamHoldCapacity
+/// Tooltip: Maximum number of images (for the current size and format) which can be stored on the camera when StreamHold is enabled.
+/// Description: Maximum number of images (for the current size and format) which can be stored on the camera when StreamHold is enabled.
+/// SNFC Namespace: Custom
+/// Value: 30
+
+/// Feature Name: GevTimestampTickFrequency
+/// Display Name: GevTimestampTickFrequency
+/// Tooltip: Frequency of image timestamp, in Hertz.
+/// Description: Frequency of image timestamp, in Hertz.
+/// SNFC Namespace: Standard
+/// Value: 1000000000
+
+/// Feature Name: GevTimestampControlLatch
+/// Display Name: GevTimestampControlLatch
+/// Tooltip: Capture timestamp and store in GevTimestampValue.
+/// Description: Capture timestamp and store in GevTimestampValue.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: GevTimestampControlReset
+/// Display Name: GevTimestampControlReset
+/// Tooltip: Reset the timestamp.
+/// Description: Reset the timestamp.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: GevTimestampValue
+/// Display Name: GevTimestampValue
+/// Tooltip: Value of timestamp, when latched by GevTimestampControlLatch.
+/// Description: Value of timestamp, when latched by GevTimestampControlLatch.
+/// SNFC Namespace: Standard
+/// Value: 91639055812000
+
+/// Feature Name: PtpMode
+/// Display Name: PtpMode
+/// Tooltip:
+/// Description: Control the PTP behavior of the Clock port.
+/// SNFC Namespace: Custom
+/// Value: Off
+
+/// Feature Name: PtpStatus
+/// Display Name: PtpStatus
+/// Tooltip:
+/// Description: What state the PTP operation is in.
+/// SNFC Namespace: Custom
+/// Value: Disabled
+
+/// Feature Name: PtpAcquisitionGateTime
+/// Display Name: PtpAcquisitionGateTime
+/// Tooltip:
+/// Description:
+/// SNFC Namespace: Custom
+/// Value: 0
+
+/// Feature Name: SensorWidth
+/// Display Name: SensorWidth
+/// Tooltip: Full width of image sensor.
+/// Description: Full width of image sensor.
+/// SNFC Namespace: Standard
+/// Value: 2048
+
+/// Feature Name: SensorHeight
+/// Display Name: SensorHeight
+/// Tooltip: Full height of image sensor.
+/// Description: Full height of image sensor.
+/// SNFC Namespace: Standard
+/// Value: 2048
+
+/// Feature Name: DecimationHorizontal
+/// Display Name: DecimationHorizontal
+/// Tooltip: Horizontal decimation (sub-sampling) of the image.
+/// Description: Horizontal decimation (sub-sampling) of the image.
+/// SNFC Namespace: Standard
+/// Value: 1
+
+/// Feature Name: DecimationVertical
+/// Display Name: DecimationVertical
+/// Tooltip: Vertical decimation (sub-sampling) of the image.
+/// Description: Vertical decimation (sub-sampling) of the image.
+/// SNFC Namespace: Standard
+/// Value: 1
+
+/// Feature Name: ReverseX
+/// Display Name: ReverseX
+/// Tooltip: Flip horizontally the image.
+/// Description: ReverseX is used to flip horizontally the image sent by the device. The AOI is applied after the flipping.
+/// SNFC Namespace: Standard
+/// Value: 0
+
+/// Feature Name: ReverseY
+/// Display Name: ReverseY
+/// Tooltip: Flip horizontally the image.
+/// Description: ReverseY is used to flip vertically the image sent by the device. The AOI is applied after the flipping.
+/// SNFC Namespace: Standard
+/// Value: 0
+
+/// Feature Name: WidthMax
+/// Display Name: WidthMax
+/// Tooltip: Maximum image width for the current image mode. Horizontal binning, for example, will change this value.
+/// Description: Maximum image width for the current image mode. Horizontal binning, for example, will change this value.
+/// SNFC Namespace: Standard
+/// Value: 2048
+
+/// Feature Name: HeightMax
+/// Display Name: HeightMax
+/// Tooltip: Maximum image height for the current image mode. Vertical binning, for example, will change this value.
+/// Description: Maximum image height for the current image mode. Vertical binning, for example, will change this value.
+/// SNFC Namespace: Standard
+/// Value: 2048
+
+/// Feature Name: PixelFormat
+/// Display Name: PixelFormat
+/// Tooltip: Format of the image data.
+/// Description: Format of the image data.
+/// SNFC Namespace: Standard
+/// Value: Mono8
+
+/// Feature Name: Width
+/// Display Name: Width
+/// Tooltip: Width of image, in pixels.
+/// Description: Width of image, in pixels.
+/// SNFC Namespace: Standard
+/// Value: 2048
+
+/// Feature Name: Height
+/// Display Name: Height
+/// Tooltip: Height of image, in pixels.
+/// Description: Height of image, in pixels.
+/// SNFC Namespace: Standard
+/// Value: 2048
+
+/// Feature Name: OffsetX
+/// Display Name: OffsetX
+/// Tooltip: Starting column of the readout region (relative to the first column of the sensor) in pixels.
+/// Description: Starting column of the readout region (relative to the first column of the sensor) in pixels.
+/// SNFC Namespace: Standard
+/// Value: 0
+
+/// Feature Name: OffsetY
+/// Display Name: OffsetY
+/// Tooltip: Starting row of the readout region (relative to the first row of the sensor) in pixels.
+/// Description: Starting row of the readout region (relative to the first row of the sensor) in pixels.
+/// SNFC Namespace: Standard
+/// Value: 0
+
+/// Feature Name: ImageSize
+/// Display Name: ImageSize
+/// Tooltip: Size of images, in bytes, for the current format and size.
+/// Description: Size of images, in bytes, for the current format and size.
+/// SNFC Namespace: Custom
+/// Value: 4194304
+
+/// Feature Name: Gamma
+/// Display Name: Gamma
+/// Tooltip: Applies gamma value to the raw sensor signal.
+/// Description: Applies gamma value to the raw sensor signal.
+/// SNFC Namespace: Standard
+/// Value: 1.000000
+
+/// Feature Name: DefectMaskEnable
+/// Display Name: DefectMaskEnable
+/// Tooltip: Enable masking of defective pixel clusters. Defective pixels are detected and recorded at the factory.
+/// Description: Enable masking of defective pixel clusters. Defective pixels are detected and recorded at the factory.
+/// SNFC Namespace: Custom
+/// Value: On
+
+/// Feature Name: DSPSubregionLeft
+/// Display Name: DSPSubregionLeft
+/// Tooltip: The DSP subregion is the area of the image used for measurements in "auto-" functions such as auto-exposure and auto-gain. DSPSubregionLeft is the left column, relative to the current image region.
+/// Description: The DSP subregion is the area of the image used for measurements in "auto-" functions such as auto-exposure and auto-gain. DSPSubregionLeft is the left column, relative to the current image region.
+/// SNFC Namespace: Custom
+/// Value: 0
+
+/// Feature Name: DSPSubregionTop
+/// Display Name: DSPSubregionTop
+/// Tooltip: The DSP subregion is the area of the image used for measurements in "auto-" functions such as auto-exposure and auto-gain. DSPSubregionTop is the top row, relative to the current image region.
+/// Description: The DSP subregion is the area of the image used for measurements in "auto-" functions such as auto-exposure and auto-gain. DSPSubregionTop is the top row, relative to the current image region.
+/// SNFC Namespace: Custom
+/// Value: 0
+
+/// Feature Name: DSPSubregionRight
+/// Display Name: DSPSubregionRight
+/// Tooltip: The DSP subregion is the area of the image used for measurements in "auto-" functions such as auto-exposure and auto-gain. DSPSubregionRight is the right column, relative to the current image region. For convenience, this value may be higher than the maximum Width.
+/// Description: The DSP subregion is the area of the image used for measurements in "auto-" functions such as auto-exposure and auto-gain. DSPSubregionRight is the right column, relative to the current image region. For convenience, this value may be higher than the maximum Width.
+/// SNFC Namespace: Custom
+/// Value: 2048
+
+/// Feature Name: DSPSubregionBottom
+/// Display Name: DSPSubregionBottom
+/// Tooltip: The DSP subregion is the area of the image used for measurements in "auto-" functions such as auto-exposure and auto-gain. DSPSubregionBottom is the bottom row, relative to the current image region. For convenience, this value may be higher than the maximum Height.
+/// Description: The DSP subregion is the area of the image used for measurements in "auto-" functions such as auto-exposure and auto-gain. DSPSubregionBottom is the bottom row, relative to the current image region. For convenience, this value may be higher than the maximum Height.
+/// SNFC Namespace: Custom
+/// Value: 2048
+
+/// Feature Name: ExposureAuto
+/// Display Name: ExposureAuto
+/// Tooltip: Method used to set exposure duration, ExposureTimeAbs in Timed mode. Off: automatic mode is off. Once: auto-exposure occurs until target is achieved, then ExposureAuto returns to Off. Continuous: auto-exposure always runs.
+/// Description: Method used to set exposure duration, ExposureTimeAbs in Timed mode. Off: automatic mode is off. Once: auto-exposure occurs until target is achieved, then ExposureAuto returns to Off. Continuous: auto-exposure always runs.
+/// SNFC Namespace: Standard
+/// Value: Off
+
+/// Feature Name: ExposureMode
+/// Display Name: ExposureMode
+/// Tooltip: Method of control for exposure duration. Timed: exposure duration is set by ExposureTimeAbs. TriggerWidth: exposure controlled by external trigger pulse. PieceWiseLinearHDR: Exposures defined by ExposureTimeAbs and knee points via ExposureTimePWL1, ExposureTimePWL2.
+/// Description: Method of control for exposure duration. Timed: exposure duration is set by ExposureTimeAbs. TriggerWidth: exposure controlled by external trigger pulse. PieceWiseLinearHDR: Exposures defined by ExposureTimeAbs and knee points via ExposureTimePWL1, ExposureTimePWL2.
+/// SNFC Namespace: Standard
+/// Value: Timed
+
+/// Feature Name: ExposureTimeAbs
+/// Display Name: ExposureTimeAbs
+/// Tooltip: Exposure duration in microseconds. Timed: Sensor integration time. TriggerWidth: Ignored. PieceWiseLinearHDR: Full sensor integration time. See ExposureTimePWL1, ExposureTimePWL2, ThresholdPWL1, ThresholdPWL2 for knee point definitions.
+/// Description: Exposure duration in microseconds. Timed: Sensor integration time. TriggerWidth: Ignored. PieceWiseLinearHDR: Full sensor integration time. See ExposureTimePWL1, ExposureTimePWL2, ThresholdPWL1, ThresholdPWL2 for knee point definitions.
+/// SNFC Namespace: Standard
+/// Value: 100.000000
+
+/// Feature Name: ExposureTimePWL1
+/// Display Name: ExposureTimePWL1
+/// Tooltip: Exposure duration, in microseconds valid in PieceWiseLinearHDR. Exposure time after ThresholdPWL1 is reached.
+/// Description: Exposure duration, in microseconds valid in PieceWiseLinearHDR. Exposure time after ThresholdPWL1 is reached.
+/// SNFC Namespace: Standard
+/// Value: 15000.000000
+
+/// Feature Name: ExposureTimePWL2
+/// Display Name: ExposureTimePWL2
+/// Tooltip: Exposure duration, in microseconds valid in PieceWiseLinearHDR. Exposure time after ThresholdPWL2 is reached. When ThresholdPWL2 is less than ThresholdPWL1, ExposureTimePWL2 must be greater than ExposureTimePWL1.
+/// Description: Exposure duration, in microseconds valid in PieceWiseLinearHDR. Exposure time after ThresholdPWL2 is reached. When ThresholdPWL2 is less than ThresholdPWL1, ExposureTimePWL2 must be greater than ExposureTimePWL1.
+/// SNFC Namespace: Standard
+/// Value: 15000.000000
+
+/// Feature Name: ThresholdPWL1
+/// Display Name: ThresholdPWL1
+/// Tooltip: 0 = no light capacity. 63 = full light capacity. Valid in PieceWiseLinearHDR mode only. The first and highest threshold level that defines kneepoint1. Leaving this value at maximum will disable 1st knee point and hence disabling HDR.
+/// Description: 0 = no light capacity. 63 = full light capacity. Valid in PieceWiseLinearHDR mode only. The first and highest threshold level that defines kneepoint1. Leaving this value at maximum will disable 1st knee point and hence disabling HDR.
+/// SNFC Namespace: Custom
+/// Value: 63
+
+/// Feature Name: ThresholdPWL2
+/// Display Name: ThresholdPWL2
+/// Tooltip: 0 = no light capacity. 63 = full light capacity. Valid in PieceWiseLinearHDR mode only. The second and lowest threshold level that defines kneepoint2. Leaving this value at ThresholdPWL1 will disable 2nd knee point.
+/// Description: 0 = no light capacity. 63 = full light capacity. Valid in PieceWiseLinearHDR mode only. The second and lowest threshold level that defines kneepoint2. Leaving this value at ThresholdPWL1 will disable 2nd knee point.
+/// SNFC Namespace: Custom
+/// Value: 63
+
+/// Feature Name: ExposureAutoTarget
+/// Display Name: ExposureAutoTarget
+/// Tooltip: When ExposureAutoAlg is Mean, this is the target image mean value, in percent. Higher values result in brighter images.
+/// Description: When ExposureAutoAlg is Mean, this is the target image mean value, in percent. Higher values result in brighter images.
+/// SNFC Namespace: Custom
+/// Value: 40
+
+/// Feature Name: ExposureAutoAlg
+/// Display Name: ExposureAutoAlg
+/// Tooltip: Algorithm used for auto-exposure. Mean: target a particular mean value of all measured pixels in the image. FitRange: adjust the maximum pixel value to fit the sensor range.
+/// Description: Algorithm used for auto-exposure. Mean: target a particular mean value of all measured pixels in the image. FitRange: adjust the maximum pixel value to fit the sensor range.
+/// SNFC Namespace: Custom
+/// Value: Mean
+
+/// Feature Name: ExposureAutoMin
+/// Display Name: ExposureAutoMin
+/// Tooltip: Minimum auto-exposure value, in microseconds.
+/// Description: Minimum auto-exposure value, in microseconds.
+/// SNFC Namespace: Custom
+/// Value: 50
+
+/// Feature Name: ExposureAutoMax
+/// Display Name: ExposureAutoMax
+/// Tooltip: Maximum auto-exposure value, in microseconds.
+/// Description: Maximum auto-exposure value, in microseconds.
+/// SNFC Namespace: Custom
+/// Value: 500000
+
+/// Feature Name: ExposureAutoRate
+/// Display Name: ExposureAutoRate
+/// Tooltip: Rate of exposure adjustments, from 1 (slowest) to 100 (fastest). Use this control to slow down the auto-exposure adjustments.
+/// Description: Rate of exposure adjustments, from 1 (slowest) to 100 (fastest). Use this control to slow down the auto-exposure adjustments.
+/// SNFC Namespace: Custom
+/// Value: 100
+
+/// Feature Name: ExposureAutoOutliers
+/// Display Name: ExposureAutoOutliers
+/// Tooltip: Number of upper outliers to discard before calculating exposure adjustments. This is in ten-thousandths of the number pixels in the image.
+/// Description: Number of upper outliers to discard before calculating exposure adjustments. This is in ten-thousandths of the number pixels in the image.
+/// SNFC Namespace: Custom
+/// Value: 0
+
+/// Feature Name: ExposureAutoAdjustTol
+/// Display Name: ExposureAutoAdjustTol
+/// Tooltip: Tolerance, in percent, allowed from the ideal exposure value, within which the auto-exposure does not run. This prevents needless small adjustments from occurring each image.
+/// Description: Tolerance, in percent, allowed from the ideal exposure value, within which the auto-exposure does not run. This prevents needless small adjustments from occurring each image.
+/// SNFC Namespace: Custom
+/// Value: 5
+
+/// Feature Name: GainSelector
+/// Display Name: GainSelector
+/// Tooltip: (GenICam boilerplate. Always All.)
+/// Description: (GenICam boilerplate. Always All.)
+/// SNFC Namespace: Standard
+/// Value: All
+
+/// Feature Name: Gain
+/// Display Name: Gain
+/// Tooltip: Gain value of analog A/D stage. Units are usually in dB.
+/// Description: Gain value of analog A/D stage. Units are usually in dB.
+/// SNFC Namespace: Standard
+/// Value: 0.000000
+
+/// Feature Name: GainAuto
+/// Display Name: GainAuto
+/// Tooltip: Method used to set Gain. Off: automatic mode is off. Once: auto-gain occurs until target is achieved, then GainAuto returns to Off. Continuous: auto-gain always runs.
+/// Description: Method used to set Gain. Off: automatic mode is off. Once: auto-gain occurs until target is achieved, then GainAuto returns to Off. Continuous: auto-gain always runs.
+/// SNFC Namespace: Standard
+/// Value: Off
+
+/// Feature Name: GainAutoTarget
+/// Display Name: GainAutoTarget
+/// Tooltip: This is the target image mean value, in percent.
+/// Description: This is the target image mean value, in percent.
+/// SNFC Namespace: Custom
+/// Value: 50
+
+/// Feature Name: GainAutoMin
+/// Display Name: GainAutoMin
+/// Tooltip: Minimum auto-gain value.
+/// Description: Minimum auto-gain value.
+/// SNFC Namespace: Custom
+/// Value: 0.000000
+
+/// Feature Name: GainAutoMax
+/// Display Name: GainAutoMax
+/// Tooltip: Maximum auto-gain value.
+/// Description: Maximum auto-gain value.
+/// SNFC Namespace: Custom
+/// Value: 26.000000
+
+/// Feature Name: GainAutoRate
+/// Display Name: GainAutoRate
+/// Tooltip: Rate of gain adjustments, from 1 (slowest) to 100 (fastest). Use this control to slow down the auto-gain adjustments.
+/// Description: Rate of gain adjustments, from 1 (slowest) to 100 (fastest). Use this control to slow down the auto-gain adjustments.
+/// SNFC Namespace: Custom
+/// Value: 100
+
+/// Feature Name: GainAutoOutliers
+/// Display Name: GainAutoOutliers
+/// Tooltip: Number of upper outliers to discard before calculating gain adjustments. This is in ten-thousandths of the number pixels in the image.
+/// Description: Number of upper outliers to discard before calculating gain adjustments. This is in ten-thousandths of the number pixels in the image.
+/// SNFC Namespace: Custom
+/// Value: 0
+
+/// Feature Name: GainAutoAdjustTol
+/// Display Name: GainAutoAdjustTol
+/// Tooltip: Tolerance, in percent, allowed from the ideal gain value, within which the auto-gain does not run. This prevents needless small adjustments from occurring each image.
+/// Description: Tolerance, in percent, allowed from the ideal gain value, within which the auto-gain does not run. This prevents needless small adjustments from occurring each image.
+/// SNFC Namespace: Custom
+/// Value: 5
+
+/// Feature Name: BlackLevelSelector
+/// Display Name: BlackLevelSelector
+/// Tooltip: Selects which Black Level is controlled by the various Black Level features.
+/// Description: Selects which Black Level is controlled by the various Black Level features.
+/// SNFC Namespace: Standard
+/// Value: All
+
+/// Feature Name: BlackLevel
+/// Display Name: BlackLevel
+/// Tooltip: Black level (offset) value.
+/// Description: Black level (offset) value.
+/// SNFC Namespace: Standard
+/// Value: 0.000000
+
+/// Feature Name: IrisMode
+/// Display Name: IrisMode
+/// Tooltip: Set the iris mode. Disabled: no iris control. Video: enable video iris. VideoOpen: fully open a video iris. VideoClose: fully close a video iris.
+/// Description: Set the iris mode. Disabled: no iris control. Video: enable video iris. VideoOpen: fully open a video iris. VideoClose: fully close a video iris.
+/// SNFC Namespace: Custom
+/// Value: Disabled
+
+/// Feature Name: IrisAutoTarget
+/// Display Name: IrisAutoTarget
+/// Tooltip: This is the target image mean value, in percent.
+/// Description: This is the target image mean value, in percent.
+/// SNFC Namespace: Custom
+/// Value: 50
+
+/// Feature Name: IrisVideoLevel
+/// Display Name: IrisVideoLevel
+/// Tooltip: Current video-iris level, in approximately mV pp; read only. When calibrating a video lens, this value should fall between IrisVideoLevelMin and IrisVideoLevelMax.
+/// Description: Current video-iris level, in approximately mV pp; read only. When calibrating a video lens, this value should fall between IrisVideoLevelMin and IrisVideoLevelMax.
+/// SNFC Namespace: Custom
+/// Value: 0
+
+/// Feature Name: IrisVideoLevelMin
+/// Display Name: IrisVideoLevelMin
+/// Tooltip: Minimum video iris level output by the camera, in approximately mV pp. A higher minimum value slows the adjustment time but prevents excessive overshoot.
+/// Description: Minimum video iris level output by the camera, in approximately mV pp. A higher minimum value slows the adjustment time but prevents excessive overshoot.
+/// SNFC Namespace: Custom
+/// Value: 90
+
+/// Feature Name: IrisVideoLevelMax
+/// Display Name: IrisVideoLevelMax
+/// Tooltip: Maximum video iris level output by the camera, in approximately mV pp. A lower minimum value slows the adjustment time but prevents excessive overshoot.
+/// Description: Maximum video iris level output by the camera, in approximately mV pp. A lower minimum value slows the adjustment time but prevents excessive overshoot.
+/// SNFC Namespace: Custom
+/// Value: 110
+
+/// Feature Name: SyncInLevels
+/// Display Name: SyncInLevels
+/// Tooltip: Momentary logic levels of the hardware line inputs.
+/// Description: Momentary logic levels of the hardware line inputs.
+/// SNFC Namespace: Custom
+/// Value: 0
+
+/// Feature Name: SyncInSelector
+/// Display Name: SyncInSelector
+/// Tooltip: Select the sync-in line to control with {SyncInGlitchFilter}.
+/// Description: Select the sync-in line to control with {SyncInGlitchFilter}.
+/// SNFC Namespace: Custom
+/// Value: SyncIn1
+
+/// Feature Name: SyncInGlitchFilter
+/// Display Name: SyncInGlitchFilter
+/// Tooltip: Glitch filter on sync-in line, in nanoseconds.
+/// Description: Glitch filter on sync-in line, in nanoseconds.
+/// SNFC Namespace: Custom
+/// Value: 0
+
+/// Feature Name: SyncOutLevels
+/// Display Name: SyncOutLevels
+/// Tooltip: Output levels of hardware sync outputs, for output(s) in GPO mode. (Note: SyncOutPolarity can invert these values.)
+/// Description: Output levels of hardware sync outputs, for output(s) in GPO mode. (Note: SyncOutPolarity can invert these values.)
+/// SNFC Namespace: Custom
+/// Value: 0
+
+/// Feature Name: SyncOutSelector
+/// Display Name: SyncOutSelector
+/// Tooltip: Select the sync-out line to control with {SyncOutSource, SyncOutPolarity}.
+/// Description: Select the sync-out line to control with {SyncOutSource, SyncOutPolarity}.
+/// SNFC Namespace: Custom
+/// Value: SyncOut1
+
+/// Feature Name: SyncOutSource
+/// Display Name: SyncOutSource
+/// Tooltip: Signal source of the sync-out line specified by SyncOutSelector. GPO: general purpose output. AcquisitionTriggerReady: acquisition trigger may occur. FrameTriggerReady: frame trigger may occur. Exposing: exposure in progress. FrameReadout: image readout in progress. Imaging: exposure or frame readout in progress. Acquiring: acquisition is running. LineIn: external line input. Strobe: source is strobe timing unit.
+/// Description: Signal source of the sync-out line specified by SyncOutSelector. GPO: general purpose output. AcquisitionTriggerReady: acquisition trigger may occur. FrameTriggerReady: frame trigger may occur. Exposing: exposure in progress. FrameReadout: image readout in progress. Imaging: exposure or frame readout in progress. Acquiring: acquisition is running. LineIn: external line input. Strobe: source is strobe timing unit.
+/// SNFC Namespace: Custom
+/// Value: Exposing
+
+/// Feature Name: SyncOutPolarity
+/// Display Name: SyncOutPolarity
+/// Tooltip: Polarity applied to the sync-out line specified by SyncOutSelector.
+/// Description: Polarity applied to the sync-out line specified by SyncOutSelector.
+/// SNFC Namespace: Custom
+/// Value: Normal
+
+/// Feature Name: StrobeSource
+/// Display Name: StrobeSource
+/// Tooltip: Signal source of the strobe timing unit. See SyncOutSource for descriptions.
+/// Description: Signal source of the strobe timing unit. See SyncOutSource for descriptions.
+/// SNFC Namespace: Custom
+/// Value: FrameTrigger
+
+/// Feature Name: StrobeDurationMode
+/// Display Name: StrobeDurationMode
+/// Tooltip: Mode of the strobe timing unit. Source: strobe duration is the same as source duration. Controlled: strobe duration is set by StrobeDuration.
+/// Description: Mode of the strobe timing unit. Source: strobe duration is the same as source duration. Controlled: strobe duration is set by StrobeDuration.
+/// SNFC Namespace: Custom
+/// Value: Source
+
+/// Feature Name: StrobeDelay
+/// Display Name: StrobeDelay
+/// Tooltip: Delay from strobe trigger to strobe output, in microseconds.
+/// Description: Delay from strobe trigger to strobe output, in microseconds.
+/// SNFC Namespace: Custom
+/// Value: 0
+
+/// Feature Name: StrobeDuration
+/// Display Name: StrobeDuration
+/// Tooltip: Duration of strobe, in microseconds.
+/// Description: Duration of strobe, in microseconds.
+/// SNFC Namespace: Custom
+/// Value: 0
+
+/// Feature Name: UserSetSelector
+/// Display Name: UserSetSelector
+/// Tooltip: Select a user set, for loading or saving camera parameters.
+/// Description: Select a user set, for loading or saving camera parameters.
+/// SNFC Namespace: Standard
+/// Value: Default
+
+/// Feature Name: UserSetLoad
+/// Display Name: UserSetLoad
+/// Tooltip: Load camera parameters from the user set specified by UserSetSelector.
+/// Description: Load camera parameters from the user set specified by UserSetSelector.
+/// SNFC Namespace: Standard
+/// Value: [None]
+
+/// Feature Name: UserSetSave
+/// Display Name: UserSetSave
+/// Tooltip: Save camera parameters to the user set specified by UserSetSelector.
+/// Description: Save camera parameters to the user set specified by UserSetSelector.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: UserSetDefaultSelector
+/// Display Name: UserSetDefaultSelector
+/// Tooltip: On power-up or reset, this user set is loaded.
+/// Description: On power-up or reset, this user set is loaded.
+/// SNFC Namespace: Standard
+/// Value: Default
+
+/// Feature Name: EventSelector
+/// Display Name: EventSelector
+/// Tooltip: Activate event-notification on the GigE Vision message channel.
+/// Description: Activate event-notification on the GigE Vision message channel.
+/// SNFC Namespace: Standard
+/// Value: AcquisitionStart
+
+/// Feature Name: EventNotification
+/// Display Name: EventNotification
+/// Tooltip: Activate event-notification on the GigE Vision message channel.
+/// Description: Activate event-notification on the GigE Vision message channel.
+/// SNFC Namespace: Standard
+/// Value: Off
+
+/// Feature Name: EventsEnable1
+/// Display Name: EventsEnable1
+/// Tooltip: Activate event-notification on the GigE Vision message channel. For programmers. See register documentation.
+/// Description: Activate event-notification on the GigE Vision message channel. For programmers. See register documentation.
+/// SNFC Namespace: Custom
+/// Value: 0
+
+/// Feature Name: ActionDeviceKey
+/// Display Name: Action Device Key
+/// Tooltip: Provides the device key that allows the device to check the validity of action commands.
+/// Description: Provides the device key that allows the device to check the validity of action commands. The device internal assertion of an action signal is only authorized if the ActionDeviceKey and the action device key value in the protocol message are equal.
+/// SNFC Namespace: Standard
+/// Value: 0
+
+/// Feature Name: ActionSelector
+/// Display Name: Action Selector
+/// Tooltip: Selects to which Action Signal further Action settings apply.
+/// Description: Selects to which Action Signal further Action settings apply.
+/// SNFC Namespace: Standard
+/// Value: 0
+
+/// Feature Name: ActionGroupMask
+/// Display Name: Action Group Mask
+/// Tooltip: Provides the mask that the device will use to validate the action on reception of the action protocol message.
+/// Description: Provides the mask that the device will use to validate the action on reception of the action protocol message.
+/// SNFC Namespace: Standard
+/// Value: 0
+
+/// Feature Name: ActionGroupKey
+/// Display Name: Action Group Key
+/// Tooltip: Provides the key that the device will use to validate the action on reception of the action protocol message.
+/// Description: Provides the key that the device will use to validate the action on reception of the action protocol message.
+/// SNFC Namespace: Standard
+/// Value: 0
+
+/// Feature Name: LUTSelector
+/// Display Name: LUTSelector
+/// Tooltip: Selects which look up table is used.
+/// Description: Selects which look up table is used.
+/// SNFC Namespace: Standard
+/// Value: LUT1
+
+/// Feature Name: LUTMode
+/// Display Name: LUTMode
+/// Tooltip: Selects which mode is used for the selected look up table.
+/// Description: Selects which mode is used for the selected look up table.
+/// SNFC Namespace: Custom
+/// Value: Luminance
+
+/// Feature Name: LUTEnable
+/// Display Name: LUTEnable
+/// Tooltip: Activates the selected LUT.
+/// Description: Activates the selected LUT.
+/// SNFC Namespace: Standard
+/// Value: 0
+
+/// Feature Name: LUTIndex
+/// Display Name: LUTIndex
+/// Tooltip: Control the index of the coefficient to access in the selected look up table.
+/// Description: Control the index of the coefficient to access in the selected look up table.
+/// SNFC Namespace: Standard
+/// Value: 0
+
+/// Feature Name: LUTValue
+/// Display Name: LUTValue
+/// Tooltip: Returns the Value at entry LUTIndex of the selected look up table
+/// Description: Returns the Value at entry LUTIndex of the selected look up table
+/// SNFC Namespace: Standard
+/// Value: 4095
+
+/// Feature Name: LUTLoadAll
+/// Display Name: LUTLoadAll
+/// Tooltip: Load all look up tables from Flash.
+/// Description: Load all look up tables from Flash.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: LUTSaveAll
+/// Display Name: LUTSaveAll
+/// Tooltip: Save all look up tables in Flash.
+/// Description: Save all look up tables in Flash.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: LUTBitDepthIn
+/// Display Name: LUTBitLengthIn
+/// Tooltip: Bit length of the input value of the look up table block
+/// Description: Bit length of the input value of the look up table block
+/// SNFC Namespace: Custom
+/// Value: 12
+
+/// Feature Name: LUTBitDepthOut
+/// Display Name: LUTBitLengthOut
+/// Tooltip: Bit length of the output value of the look up table block
+/// Description: Bit length of the output value of the look up table block
+/// SNFC Namespace: Custom
+/// Value: 12
+
+/// Feature Name: LUTAddress
+/// Display Name: LUTAddress
+/// Tooltip: Address of the memory area where the selected LUT is located (for raw memory transfer)
+/// Description: Address of the memory area where the selected LUT is located (for raw memory transfer)
+/// SNFC Namespace: Custom
+/// Value: 196608
+
+/// Feature Name: LUTSizeBytes
+/// Display Name: LUTSize
+/// Tooltip: Size of the memory area where the LUT is located
+/// Description: Size of the memory area where the LUT is located
+/// SNFC Namespace: Custom
+/// Value: 8192
+
+/// Feature Name: ChunkAcquisitionFrameCount
+/// Display Name: Chunk Acquisition Frame Count
+/// Tooltip: This is the number of the frame during the current acquisition.
+/// Description: This is the number of the frame during the current acquisition.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: ChunkUserValue
+/// Display Name: Chunk User Value
+/// Tooltip: User value
+/// Description: User value
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: ChunkExposureTime
+/// Display Name: Chunk Exposure Time
+/// Tooltip: Exposure duration, in microseconds.
+/// Description: Exposure duration, in microseconds.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: ChunkGain
+/// Display Name: Chunk Gain
+/// Tooltip: Gain value of analog A/D stage. Units are usually in dB.
+/// Description: Gain value of analog A/D stage. Units are usually in dB.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: ChunkSyncInLevels
+/// Display Name: Chunk Sync In Levels
+/// Tooltip: Momentary logic levels of the hardware line inputs.
+/// Description: Momentary logic levels of the hardware line inputs.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: ChunkSyncOutLevels
+/// Display Name: Chunk Sync Out Levels
+/// Tooltip: Output levels of hardware sync outputs, for output(s) in GPO mode.
+/// Description: Output levels of hardware sync outputs, for output(s) in GPO mode.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: ChunkSelector
+/// Display Name: Chunk Selector
+/// Tooltip: Selects which Chunk to enable or control.
+/// Description: Selects which Chunk to enable or control.
+/// SNFC Namespace: Standard
+/// Value: AcquisitionFrameCount
+
+/// Feature Name: ChunkEnable
+/// Display Name: Chunk Enable
+/// Tooltip: Enables the inclusion of the selected Chunk data in the payload of the image.
+/// Description: Enables the inclusion of the selected Chunk data in the payload of the image.
+/// SNFC Namespace: Standard
+/// Value: 1
+
+/// Feature Name: EventAcquisitionStartTimestamp
+/// Display Name: Event AcquisitionStart Timestamp
+/// Tooltip: Returns the Timestamp of the AcquisitionStart Event.
+/// Description: Returns the Timestamp of the AcquisitionStart Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventAcquisitionStartFrameID
+/// Display Name: Event AcquisitionStart FrameID
+/// Tooltip: Returns the FrameID of the AcquisitionStart Event.
+/// Description: Returns the FrameID of the AcquisitionStart Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventAcquisitionEndTimestamp
+/// Display Name: Event AcquisitionEnd Timestamp
+/// Tooltip: Returns the Timestamp of the AcquisitionEnd Event.
+/// Description: Returns the Timestamp of the AcquisitionEnd Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventAcquisitionEndFrameID
+/// Display Name: Event AcquisitionEnd FrameID
+/// Tooltip: Returns the FrameID of the AcquisitionEnd Event.
+/// Description: Returns the FrameID of the AcquisitionEnd Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventFrameTriggerTimestamp
+/// Display Name: Event FrameTrigger Timestamp
+/// Tooltip: Returns the Timestamp of the FrameTrigger Event.
+/// Description: Returns the Timestamp of the FrameTrigger Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventFrameTriggerFrameID
+/// Display Name: Event FrameTrigger FrameID
+/// Tooltip: Returns the FrameID of the FrameTrigger Event.
+/// Description: Returns the FrameID of the FrameTrigger Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventExposureEndTimestamp
+/// Display Name: Event ExposureEnd Timestamp
+/// Tooltip: Returns the Timestamp of the ExposureEnd Event.
+/// Description: Returns the Timestamp of the ExposureEnd Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventExposureEndFrameID
+/// Display Name: Event ExposureEnd FrameID
+/// Tooltip: Returns the FrameID of the ExposureEnd Event.
+/// Description: Returns the FrameID of the ExposureEnd Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventAcquisitionRecordTriggerTimestamp
+/// Display Name: Event AcquisitionRecordTrigger Timestamp
+/// Tooltip: Returns the Timestamp of the AcquisitionRecordTrigger Event.
+/// Description: Returns the Timestamp of the AcquisitionRecordTrigger Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventAcquisitionRecordTriggerFrameID
+/// Display Name: Event AcquisitionRecordTrigger FrameID
+/// Tooltip: Returns the FrameID of the AcquisitionRecordTrigger Event.
+/// Description: Returns the FrameID of the AcquisitionRecordTrigger Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventPtpSyncLostTimestamp
+/// Display Name: Event PtpSyncLost Timestamp
+/// Tooltip: Returns the Timestamp of the PtpSyncLost Event.
+/// Description: Returns the Timestamp of the PtpSyncLost Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventPtpSyncLostFrameID
+/// Display Name: Event PtpSyncLost FrameID
+/// Tooltip: Returns the FrameID of the PtpSyncLost Event.
+/// Description: Returns the FrameID of the PtpSyncLost Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventPtpSyncLockedTimestamp
+/// Display Name: Event PtpSyncLocked Timestamp
+/// Tooltip: Returns the Timestamp of the PtpSyncLocked Event.
+/// Description: Returns the Timestamp of the PtpSyncLocked Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventPtpSyncLockedFrameID
+/// Display Name: Event PtpSyncLocked FrameID
+/// Tooltip: Returns the FrameID of the PtpSyncLocked Event.
+/// Description: Returns the FrameID of the PtpSyncLocked Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventLine1RisingEdgeTimestamp
+/// Display Name: Event Line1RisingEdge Timestamp
+/// Tooltip: Returns the Timestamp of the Line1RisingEdge Event.
+/// Description: Returns the Timestamp of the Line1RisingEdge Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventLine1RisingEdgeFrameID
+/// Display Name: Event Line1RisingEdge FrameID
+/// Tooltip: Returns the FrameID of the Line1RisingEdge Event.
+/// Description: Returns the FrameID of the Line1RisingEdge Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventLine1FallingEdgeTimestamp
+/// Display Name: Event Line1FallingEdge Timestamp
+/// Tooltip: Returns the Timestamp of the Line1FallingEdge Event.
+/// Description: Returns the Timestamp of the Line1FallingEdge Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventLine1FallingEdgeFrameID
+/// Display Name: Event Line1FallingEdge FrameID
+/// Tooltip: Returns the FrameID of the Line1FallingEdge Event.
+/// Description: Returns the FrameID of the Line1FallingEdge Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventLine2RisingEdgeTimestamp
+/// Display Name: Event Line2RisingEdge Timestamp
+/// Tooltip: Returns the Timestamp of the Line2RisingEdge Event.
+/// Description: Returns the Timestamp of the Line2RisingEdge Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventLine2RisingEdgeFrameID
+/// Display Name: Event Line2RisingEdge FrameID
+/// Tooltip: Returns the FrameID of the Line2RisingEdge Event.
+/// Description: Returns the FrameID of the Line2RisingEdge Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventLine2FallingEdgeTimestamp
+/// Display Name: Event Line2FallingEdge Timestamp
+/// Tooltip: Returns the Timestamp of the Line2FallingEdge Event.
+/// Description: Returns the Timestamp of the Line2FallingEdge Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventLine2FallingEdgeFrameID
+/// Display Name: Event Line2FallingEdge FrameID
+/// Tooltip: Returns the FrameID of the Line2FallingEdge Event.
+/// Description: Returns the FrameID of the Line2FallingEdge Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventLine3RisingEdgeTimestamp
+/// Display Name: Event Line3RisingEdge Timestamp
+/// Tooltip: Returns the Timestamp of the Line3RisingEdge Event.
+/// Description: Returns the Timestamp of the Line3RisingEdge Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventLine3RisingEdgeFrameID
+/// Display Name: Event Line3RisingEdge FrameID
+/// Tooltip: Returns the FrameID of the Line3RisingEdge Event.
+/// Description: Returns the FrameID of the Line3RisingEdge Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventLine3FallingEdgeTimestamp
+/// Display Name: Event Line3FallingEdge Timestamp
+/// Tooltip: Returns the Timestamp of the Line3FallingEdge Event.
+/// Description: Returns the Timestamp of the Line3FallingEdge Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventLine3FallingEdgeFrameID
+/// Display Name: Event Line3FallingEdge FrameID
+/// Tooltip: Returns the FrameID of the Line3FallingEdge Event.
+/// Description: Returns the FrameID of the Line3FallingEdge Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventLine4RisingEdgeTimestamp
+/// Display Name: Event Line4RisingEdge Timestamp
+/// Tooltip: Returns the Timestamp of the Line4RisingEdge Event.
+/// Description: Returns the Timestamp of the Line4RisingEdge Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventLine4RisingEdgeFrameID
+/// Display Name: Event Line4RisingEdge FrameID
+/// Tooltip: Returns the FrameID of the Line4RisingEdge Event.
+/// Description: Returns the FrameID of the Line4RisingEdge Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventLine4FallingEdgeTimestamp
+/// Display Name: Event Line4FallingEdge Timestamp
+/// Tooltip: Returns the Timestamp of the Line4FallingEdge Event.
+/// Description: Returns the Timestamp of the Line4FallingEdge Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventLine4FallingEdgeFrameID
+/// Display Name: Event Line4FallingEdge FrameID
+/// Tooltip: Returns the FrameID of the Line4FallingEdge Event.
+/// Description: Returns the FrameID of the Line4FallingEdge Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventFrameTriggerReadyTimestamp
+/// Display Name: Event FrameTriggerReady Timestamp
+/// Tooltip: Returns the Timestamp of the FrameTriggerReady Event.
+/// Description: Returns the Timestamp of the FrameTriggerReady Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventFrameTriggerReadyFrameID
+/// Display Name: Event FrameTriggerReady FrameID
+/// Tooltip: Returns the FrameID of the FrameTriggerReady Event.
+/// Description: Returns the FrameID of the FrameTriggerReady Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventExposureStartTimestamp
+/// Display Name: Event ExposureStart Timestamp
+/// Tooltip: Returns the Timestamp of the ExposureStart Event.
+/// Description: Returns the Timestamp of the ExposureStart Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventExposureStartFrameID
+/// Display Name: Event ExposureStart FrameID
+/// Tooltip: Returns the FrameID of the ExposureStart Event.
+/// Description: Returns the FrameID of the ExposureStart Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventAction0Timestamp
+/// Display Name: Event Action0 Timestamp
+/// Tooltip: Returns the Timestamp of the Action0 Event.
+/// Description: Returns the Timestamp of the Action0 Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventAction0FrameID
+/// Display Name: Event Action0 FrameID
+/// Tooltip: Returns the FrameID of the Action0 Event.
+/// Description: Returns the FrameID of the Action0 Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventAction1Timestamp
+/// Display Name: Event Action1 Timestamp
+/// Tooltip: Returns the Timestamp of the Action1 Event.
+/// Description: Returns the Timestamp of the Action1 Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventAction1FrameID
+/// Display Name: Event Action1 FrameID
+/// Tooltip: Returns the FrameID of the Action1 Event.
+/// Description: Returns the FrameID of the Action1 Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventErrorTimestamp
+/// Display Name: Event Error Timestamp
+/// Tooltip: Returns the Timestamp of the Error Event.
+/// Description: Returns the Timestamp of the Error Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventErrorFrameID
+/// Display Name: Event Error FrameID
+/// Tooltip: Returns the FrameID of the Error Event.
+/// Description: Returns the FrameID of the Error Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventOverflowTimestamp
+/// Display Name: Event Overflow Timestamp
+/// Tooltip: Returns the Timestamp of the Overflow Event.
+/// Description: Returns the Timestamp of the Overflow Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventOverflowFrameID
+/// Display Name: Event Overflow FrameID
+/// Tooltip: Returns the FrameID of the Overflow Event.
+/// Description: Returns the FrameID of the Overflow Event.
+/// SNFC Namespace: Custom
+/// Value: The feature is not readable
+
+/// Feature Name: EventAcquisitionStart
+/// Display Name: EventAcquisitionStart
+/// Tooltip: ID value of AcquisitionStart event.
+/// Description: ID value of AcquisitionStart event.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: EventAcquisitionEnd
+/// Display Name: EventAcquisitionEnd
+/// Tooltip: ID value of AcquisitionEnd event.
+/// Description: ID value of AcquisitionEnd event.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: EventFrameTrigger
+/// Display Name: EventFrameTrigger
+/// Tooltip: ID value of FrameTrigger event.
+/// Description: ID value of FrameTrigger event.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: EventExposureEnd
+/// Display Name: EventExposureEnd
+/// Tooltip: ID value of ExposureEnd event.
+/// Description: ID value of ExposureEnd event.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: EventAcquisitionRecordTrigger
+/// Display Name: EventAcquisitionRecordTrigger
+/// Tooltip: ID value of AcquisitionRecordTrigger event.
+/// Description: ID value of AcquisitionRecordTrigger event.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: EventPtpSyncLost
+/// Display Name: EventPtpSyncLost
+/// Tooltip: ID value of PtpSyncLost event.
+/// Description: ID value of PtpSyncLost event.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: EventPtpSyncLocked
+/// Display Name: EventPtpSyncLocked
+/// Tooltip: ID value of PtpSyncLocked event.
+/// Description: ID value of PtpSyncLocked event.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: EventLine1RisingEdge
+/// Display Name: EventLine1RisingEdge
+/// Tooltip: ID value of Line1RisingEdge event.
+/// Description: ID value of Line1RisingEdge event.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: EventLine1FallingEdge
+/// Display Name: EventLine1FallingEdge
+/// Tooltip: ID value of Line1FallingEdge event.
+/// Description: ID value of Line1FallingEdge event.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: EventLine2RisingEdge
+/// Display Name: EventLine2RisingEdge
+/// Tooltip: ID value of Line2RisingEdge event.
+/// Description: ID value of Line2RisingEdge event.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: EventLine2FallingEdge
+/// Display Name: EventLine2FallingEdge
+/// Tooltip: ID value of Line2FallingEdge event.
+/// Description: ID value of Line2FallingEdge event.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: EventLine3RisingEdge
+/// Display Name: EventLine3RisingEdge
+/// Tooltip: ID value of Line3RisingEdge event.
+/// Description: ID value of Line3RisingEdge event.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: EventLine3FallingEdge
+/// Display Name: EventLine3FallingEdge
+/// Tooltip: ID value of Line3FallingEdge event.
+/// Description: ID value of Line3FallingEdge event.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: EventLine4RisingEdge
+/// Display Name: EventLine4RisingEdge
+/// Tooltip: ID value of Line4RisingEdge event.
+/// Description: ID value of Line4RisingEdge event.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: EventLine4FallingEdge
+/// Display Name: EventLine4FallingEdge
+/// Tooltip: ID value of Line4FallingEdge event.
+/// Description: ID value of Line4FallingEdge event.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: EventFrameTriggerReady
+/// Display Name: EventFrameTriggerReady
+/// Tooltip: ID value of FrameTriggerReady event.
+/// Description: ID value of FrameTriggerReady event.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: EventExposureStart
+/// Display Name: EventExposureStart
+/// Tooltip: ID value of ExposureStart event.
+/// Description: ID value of ExposureStart event.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: EventAction0
+/// Display Name: EventAction0
+/// Tooltip: ID value of Action0 event.
+/// Description: ID value of Action0 event.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: EventAction1
+/// Display Name: EventAction1
+/// Tooltip: ID value of Action1 event.
+/// Description: ID value of Action1 event.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: EventError
+/// Display Name: EventError
+/// Tooltip: ID value of Error event.
+/// Description: ID value of Error event.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable
+
+/// Feature Name: EventOverflow
+/// Display Name: EventOverflow
+/// Tooltip: ID value of Overflow event.
+/// Description: ID value of Overflow event.
+/// SNFC Namespace: Standard
+/// Value: The feature is not readable

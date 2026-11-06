@@ -1,0 +1,522 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+
+#include <iostream>
+#include <vector>
+#include <thread>
+#include <chrono>
+
+#include <VmbCPP/VmbCPP.h>
+#include <opencv2/opencv.hpp>
+
+// --------------------------------------------------------------------------
+// TODO: X - Need to display camera properties (exposure time, pixel size, etc)
+//		 X - Image formatting (time-name-[i].format)
+//		 X - Generalize to 2 cameras 
+//		 Allow program to work outside of Vimba X examples folder
+//		 !!External triggering!!
+//		 
+// ---------------------------------------------------------------------------
+
+double DEFAULT_EX_TIME = 2000;
+const VmbUint32_t DEFAULT_TIMEOUT = DEFAULT_EX_TIME; // In MILLISECONDS. VERY IMPORTANT
+const size_t DEFAULT_NUM_IM = 3;
+
+struct prop_list_DOUBLES {
+	std::string prop_name;
+	double prop_val;
+	bool can_change;
+};
+
+struct prop_list_STRINGS {
+	std::string prop_name;
+	std::string prop_val;
+	bool can_change;
+};
+
+
+// We're defining the camera class for convienence 
+class Camera {
+public:
+	std::string name;
+	std::string ID;
+	std::string assign_name;
+	std::string filepath;
+	
+	bool is_found = false;
+	bool is_open = false;
+	
+	VmbCPP::CameraPtr camPtr;
+
+	// PROP_TYPE, VALUE, IS_CHANGED
+	std::vector<prop_list_DOUBLES> double_props;
+	std::vector<prop_list_STRINGS> string_props;
+
+	Camera() {
+		camPtr = nullptr;
+		is_found = false;
+	}
+
+	Camera(std::string cname, std::string cID, std::string ca_name) {
+		name = cname;
+		ID = cID;
+		assign_name = ca_name;
+	}
+
+	void checkID() {
+		std::string cam_ID;
+		camPtr->GetID(cam_ID);
+		if (ID == cam_ID) {
+			std::cout << "Camera IDs match for " << name << std::endl;
+			std::cout << " " << std::endl;
+		}
+		else {
+			std::cout << "Camera IDs do not match for " << name << std::endl;
+			std::cout << "Pointer ID: " << cam_ID << std::endl;
+			std::cout << "Camera ID: " << ID << std::endl;
+			std::cout << " " << std::endl;
+		}
+	}
+
+	void isFound() { is_found = camPtr != nullptr; }
+};
+
+class CamSystem {
+public: 
+	bool is_off = true;
+	bool change_vals = false;
+	VmbUint32_t camera_timeout = DEFAULT_TIMEOUT;
+	size_t num_images = DEFAULT_NUM_IM;
+	std::vector<Camera> cameras = {};
+
+	CamSystem(VmbCPP::VmbSystem& sys) { is_off = false; }
+
+};
+
+void GigEAdjustPacketSize(VmbCPP::CameraPtr camera) {
+	VmbCPP::StreamPtrVector streams;
+	VmbErrorType err = camera->GetStreams(streams);
+
+	if (err != VmbErrorSuccess || streams.empty()) {
+		std::cout << "Could not get stream modules, err=" << std::to_string(err) << std::endl;
+	}
+
+	VmbCPP::FeaturePtr feature;
+	err = streams[0]->GetFeatureByName("GVSPAdjustPacketSize", feature);
+
+	if (err == VmbErrorSuccess) {
+		err = feature->RunCommand();
+		if (err == VmbErrorSuccess) {
+			bool commandDone = false;
+			do {
+				if (feature->IsCommandDone(commandDone) != VmbErrorSuccess) {
+					break;
+				}
+			} while (commandDone == false);
+		}
+		else {
+			std::cout << "Error while executing GVSPAdjustPacketSize. Error code: " + std::to_string(err) << std::endl;
+		}
+	}
+}
+
+cv::Mat ConvertVimbaToMat(const VmbCPP::FramePtr& frame) {
+	if (!frame) {
+		std::cout << "Frame doesn't exist!" << std::endl;	
+		return {};
+	}
+
+	VmbUint32_t width = 0;
+	VmbUint32_t height = 0;
+
+	frame->GetWidth(width);
+	frame->GetHeight(height);
+
+	VmbFrameStatusType status;
+	frame->GetReceiveStatus(status);
+
+	if (status != VmbFrameStatusComplete) {
+		std::cerr << "Frame incomplete! Error code: " << status << std::endl;;
+		return {};
+	}
+
+	VmbUchar_t* buffer = nullptr;
+	VmbErrorType err = frame->GetImage(buffer);
+	//std::cout << buffer << std::endl;
+
+	if (err != VmbErrorSuccess || buffer == nullptr) {
+		std::cerr << "No image buffer\n";
+		return {};
+	}
+
+	return cv::Mat(height, width, CV_8UC1, buffer).clone();
+}
+
+std::string getTime() {
+	// Time formatting
+	std::time_t now = std::time(nullptr);
+	std::tm* localTime = std::localtime(&now);
+
+	char buffer[80];
+	// Format: Year-Month-Day Hour:Minute:Second
+	std::strftime(buffer, sizeof(buffer), "%Y-%m-%d_%H.%M.%S", localTime);
+	return buffer;
+}
+
+void FindCams(VmbCPP::CameraPtrVector &cameras) {
+	// Listing all cameras and their properties
+	std::size_t cam_list_length = cameras.size();
+	for (size_t i = 0; i < cam_list_length; i++) {
+		VmbCPP::CameraPtr camera = cameras[i];
+
+		std::string cam_ID;
+		std::string cam_name;
+
+		camera->GetID(cam_ID);
+		camera->GetName(cam_name);
+
+		std::cout << "Found camera ID: " << cam_ID << std::endl;
+		std::cout << "Found camera name: " << cam_name << std::endl;
+		std::cout << " " << std::endl;
+	}
+}
+
+bool PrintPropDouble(VmbCPP::CameraPtr cam, const std::string& feat_type, bool show_range) {
+	if (cam != nullptr) {
+		VmbCPP::FeaturePtr pFeat;
+		VmbErrorType err = cam->GetFeatureByName(feat_type.c_str(), pFeat);
+		if (VmbErrorSuccess == err) {
+			double cur_val = 0.0;
+			std::string units;
+			// When you do this, you are using the pointer's method to set your variable to whatever the pointer finds
+			pFeat->GetValue(cur_val);
+			pFeat->GetUnit(units);
+			std::cout << "Current "<< feat_type <<" value: " << cur_val << " " << units << std::endl;
+			if (show_range) {
+				double min, max = 0.0;
+				pFeat->GetRange(min, max);
+				std::cout << ">>> Range for " << feat_type << " " << min << "-" << max << " " << units << std::endl;
+			}
+			return false; // Successful find, then find_err = false
+		}
+		else {
+			std::cerr << "Failed to find " << feat_type << " feature. Error code: " << err << std::endl;
+			return true;
+		}
+	}
+	else {
+		std::cout << "Unable to display feature. Camera pointer is null." << std::endl;
+		return true;
+	}
+}
+
+bool PrintPropString(VmbCPP::CameraPtr cam, const std::string &feat_type) {
+	if (cam != nullptr) {
+		VmbCPP::FeaturePtr pFeat;
+		VmbErrorType err = cam->GetFeatureByName(feat_type.c_str(), pFeat);
+		if (VmbErrorSuccess == err) {
+			std::string curr_val;
+			pFeat->GetValue(curr_val);
+			std::cout << "Current " << feat_type << " value: " << curr_val << std::endl;
+			return false; // Successful find, then find_err = false
+		}
+		else {
+			std::cerr << "Failed to find " << feat_type << " feature. Error code: " << err << std::endl;
+			return true;
+		}
+	}
+	else {
+		std::cout << "Unable to display feature. Camera pointer is null." << std::endl;
+		return true;
+	}
+}
+
+void SetPropDouble(VmbCPP::CameraPtr cam, double set, const std::string& feat_type) {
+	VmbCPP::FeaturePtr pFeat;
+	VmbErrorType err = cam->GetFeatureByName(feat_type.c_str(), pFeat);
+	if (VmbErrorSuccess == err) {
+		double min, max = 0.0;
+		pFeat->GetRange(min, max);
+		if (set >= min && set <= max) {
+			std::string units;
+			VmbErrorType set_err = pFeat->SetValue(set);
+			if (set_err != VmbErrorSuccess) {
+				std::cerr << "Error setting " << feat_type << " to: " << set << ". Error code: " << set_err << std::endl;
+			}
+			pFeat->GetUnit(units);
+			std::cout << "Set " << feat_type << " to: " << set << " " << units << std::endl;
+		}
+		else {
+			std::cout << "Set value " << set << " is outside of feature range: (" << min << ", " << max << ")\n";
+		}
+	}
+}
+
+void SetPropString(VmbCPP::CameraPtr cam, std::string set, const std::string& feat_type) {
+	VmbCPP::FeaturePtr pFeat;
+	VmbErrorType err = cam->GetFeatureByName(feat_type.c_str(), pFeat);
+	if (VmbErrorSuccess == err) {
+		std::string units;
+		pFeat->SetValue(set.c_str());
+		std::cout << "Set " << feat_type << " to: " << set << std::endl;
+	}
+}
+
+void ListCamProps(CamSystem& cam_system) {
+	for (const auto& camera : cam_system.cameras) {
+		VmbCPP::CameraPtr cam = camera.camPtr;
+		if (cam != nullptr) {
+			bool find_err = false;
+			// If you get an error code of -3, it's probably because you typed in the wrong feature name
+			std::cout << "\nDisplaying current feature values\n-------------------------------------" << std::endl;
+			for (size_t i = 0; i < camera.double_props.size(); i++) {
+				std::string prop = camera.double_props[i].prop_name;
+				find_err |= PrintPropDouble(cam, prop, true); // Bitwise "or" assignment
+				// Conditional to change values
+				if (cam_system.change_vals == true && find_err == false && camera.double_props[i].can_change == true) {
+					SetPropDouble(cam, camera.double_props[i].prop_val, camera.double_props[i].prop_name);
+				}
+			}
+
+			for (size_t i = 0; i < camera.string_props.size(); i++) {
+				std::string prop = camera.string_props[i].prop_name;
+				find_err |= PrintPropString(cam, prop);
+				// Conditional to change values
+				if (cam_system.change_vals == true && find_err == false && camera.string_props[i].can_change == true) {
+					SetPropString(cam, camera.string_props[i].prop_val, camera.string_props[i].prop_name);
+				}
+			}
+		}
+	}
+}
+
+void CheckMainCameras(CamSystem& cam_system, VmbCPP::VmbSystem& sys) {
+	// Checking for all cameras
+	VmbCPP::CameraPtrVector hardware_cams;
+	VmbErrorType err = sys.GetCameras(hardware_cams);
+
+	if (err != VmbErrorSuccess || hardware_cams.empty()) {
+		std::cerr << "No physical cameras available to check." << std::endl;
+		return;
+	}
+
+	// Checking for the cameras we will actually use
+	std::size_t cam_list_length = hardware_cams.size();
+	for (size_t i = 0; i < cam_list_length; i++) {
+		VmbCPP::CameraPtr camera = hardware_cams[i];
+
+		std::string cam_ID;
+		camera->GetID(cam_ID);
+
+		for (auto& cam : cam_system.cameras) {
+			if (cam_ID == cam.ID) {
+				cam.camPtr = camera;
+				cam.checkID();
+				cam.isFound();
+			}
+		}
+	}
+}
+
+void OpenCameras(CamSystem &cam_system, VmbCPP::VmbSystem& sys) {
+	for (auto& cam : cam_system.cameras) {
+
+		if (cam.is_found) {
+			VmbErrorType err = sys.OpenCameraByID(cam.ID, VmbAccessModeFull, cam.camPtr);
+			if (err == VmbErrorSuccess) {
+				std::cout << "Camera [" << cam.assign_name << "] opened succesfully." << std::endl;
+				std::cout << " " << std::endl;
+				GigEAdjustPacketSize(cam.camPtr);
+				cam.is_open = true;
+			}
+			else {
+				std::cerr << "Error! Cannot open camera [" << cam.assign_name << "]. Error code: " << err << std::endl;
+				std::cout << "" << std::endl;
+			}
+		}
+		else {
+			std::cout << "Did not open camera [" << cam.assign_name << "] cannot be found" << std::endl;
+		}
+	}
+}
+// For synchronous image capture (I want 3 images in x milliseconds)
+void RunSyncCapture(CamSystem &cam_system) {
+	for (auto& cam : cam_system.cameras) {
+		if (cam.is_open) {
+			//GigEAdjustPacketSize(cam.camPtr);
+			const size_t num_im_cap = cam_system.num_images; 
+			VmbCPP::FramePtrVector frame_batch(num_im_cap);
+			VmbUint32_t completed_frcount = 0;
+
+			std::cout << "Attempting to synchronously capture " << num_im_cap << " frames for " << cam.assign_name << "...\n" << std::endl;
+
+
+			VmbErrorType grab_err = cam.camPtr->AcquireMultipleImages(
+				frame_batch,
+				DEFAULT_TIMEOUT,
+				completed_frcount
+			);
+
+			if (grab_err == VmbErrorSuccess) {
+				std::cout << "Successfully filled all " << completed_frcount << " buffers for " << cam.assign_name << std::endl;
+			}
+			else {
+				std::cerr << "AcquireMultipleImages exited with code: " << grab_err << ". Completed frames: " << completed_frcount << "/" << num_im_cap << std::endl;
+			}
+
+			bool save_error = false;
+			// Buffer loop
+			for (size_t i = 0; i < completed_frcount; i++) {
+				VmbCPP::FramePtr current_frame = frame_batch[i];
+				VmbUchar_t* pBuffer = nullptr;
+				VmbErrorType resErr = current_frame->GetBuffer(pBuffer); // Get direct memory address
+				if (resErr == VmbErrorSuccess && pBuffer != nullptr) {
+					VmbUint32_t width = 0, height = 0;
+					//current_frame->GetWidth(width);
+					//current_frame->GetHeight(height);
+					//std::cout << " -> Frame [" << i << "] Data Pointer: " << (void*)pBuffer << " | Resolution: " << width << "x" << height << std::endl;
+					// -- Processing --
+					cv::Mat con_frame = ConvertVimbaToMat(current_frame);
+					if (con_frame.empty()) {
+						std::cout << "Could not open or find the image!" << std::endl;
+						continue;
+					}
+
+					if (!con_frame.empty()) {
+						//cv::imshow("Vimba Camera Image", cv_image);
+						std::string name = getTime() + "_image_" + std::to_string(i) + ".bmp";
+						std::string file_path = cam.filepath + name;
+						bool check_write = cv::imwrite(file_path, con_frame);
+						if (check_write) save_error = true;
+						//cv::waitKey(0); // Wait for key press to close
+					}
+				}
+			} if (save_error != false) {
+				std::cout << "Saved image(s) to " << cam.filepath << '\n' << std::endl;
+			}
+			else {
+				std::cout << "ERROR! Failed to write the file to " << cam.filepath << std::endl;
+			}
+		}
+		else {
+			std::cerr << "Cam " << cam.assign_name << " is not open!" << std::endl;
+		}
+	}
+}
+
+
+void CloseSystem(CamSystem &cam_system, VmbCPP::VmbSystem& sys) {
+	for (auto& cam : cam_system.cameras) {
+		if (cam.is_found) {
+			cam.camPtr->Close();
+		}
+	}
+
+	sys.Shutdown();
+	std::cout << "=========================" << std::endl;
+	std::cout << "  Shut down Vimba X API" << std::endl;
+	std::cout << "=========================" << std::endl;
+}
+
+int main() {
+	VmbCPP::VmbSystem& sys = VmbCPP::VmbSystem::GetInstance();
+	CamSystem LAB_SYS(sys);
+	
+	// Get Vimba X version, important for debugging 
+	VmbVersionInfo_t versionInfo;
+	VmbErrorType ver_err = sys.QueryVersion(versionInfo);
+
+	if (ver_err == VmbErrorSuccess) {
+		std::cout << "Vimba X C++ API Version: "
+			<< versionInfo.major << "."
+			<< versionInfo.minor << "."
+			<< versionInfo.patch << std::endl;
+	}
+	else {
+		std::cerr << "Failed to query version. Error code: " << ver_err << std::endl;
+	}
+
+	// To disable openCV informational status messages
+	 cv::utils::logging::setLogLevel(cv::utils::logging::LOG_LEVEL_WARNING);
+
+	VmbErrorType err = sys.Startup();
+	if (err != VmbErrorSuccess) {
+		std::cerr << "Failed to launch Vimba X. Error code: " << err << std::endl;
+		return 1;
+	}
+	std::cout << "Vimba X launched succesfully!" << std::endl;
+	std::cout << "=============================" << std::endl;
+
+	// Here we define our vector of camera pointers and use it for error handling
+	VmbCPP::CameraPtrVector cameras;
+
+	// Did we get an error finding a camera?
+	err = sys.GetCameras(cameras);
+	if (err != VmbErrorSuccess) {
+		std::cout << "Failed to retrieve cameras. Error code:" << err << std::endl;
+		sys.Shutdown();
+		return 0;
+	}
+
+	// Checking if there simply are no cameras
+	if (cameras.empty()) {
+		std::cout << "No cameras found!" << std::endl;
+		sys.Shutdown();
+		return 0;
+	}
+
+	// Defining our cameras for the G1 and Manta
+	Camera Manta;
+	Manta.name = "Allied Vision Technologies Manta G-419B-NIR (E0022528) (DEV_000F31504D3C)";
+	Manta.ID = "DEV_000F31504D3C";
+	Manta.assign_name = "Manta";
+	Manta.filepath = "./M_images/";
+	Manta.double_props = {
+		{"ExposureTimeAbs", 5000, true },
+		{"AcquisitionFrameRateAbs", 26.5, false },
+		{"Gain", 0.0, true },
+	};
+
+	Manta.string_props = {
+		{"UserSetSelector", "Default", true},
+		{"ExposureAuto", "Off", true},
+		{"PixelFormat", "Mono8", true},
+		{"TriggerMode", "Off", true},
+		{"TriggerSource", "Software", true},
+		//{"AcquisitionMode", "Continuous", true},
+	};
+
+	Camera Alvium_G1;
+	Alvium_G1.name = "Allied Vision Alvium G1-812 UV (DEV_000A4710218A)";
+	Alvium_G1.ID = "DEV_000A4710218A";
+	Alvium_G1.assign_name = "Alvium_G1";
+	Alvium_G1.filepath = "./G1_images/";
+	Alvium_G1.double_props = {
+		{"ExposureTime", 5000, true },
+		{"AcquisitionFrameRate", 10, false },
+		{"Gain", 0.0, true },
+	};
+
+	Alvium_G1.string_props = {
+		{"ExposureAuto", "Off", true},
+		{"PixelFormat", "Mono8", true},
+		{"TriggerMode", "Off", true},
+		{"TriggerSource", "Software", true}
+	};
+
+	std::vector<Camera> lab_cams = {Manta, Alvium_G1};
+	LAB_SYS.cameras = lab_cams;
+	LAB_SYS.change_vals = true;
+
+	FindCams(cameras);
+
+	// Listing all cameras 
+	CheckMainCameras(LAB_SYS, sys);
+	// Opening a camera
+	OpenCameras(LAB_SYS, sys);
+	ListCamProps(LAB_SYS);
+	// Running synchronous image capture
+	RunSyncCapture(LAB_SYS);
+	// Closing system
+	CloseSystem(LAB_SYS, sys);
+	return 0;
+}
